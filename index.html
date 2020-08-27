@@ -54,10 +54,31 @@
     var productList = [];
 
     function onCreateProduct() {
+        
         var productName = document.getElementById('name').value
         var productQuantity = document.getElementById('quantity').value
         var productPrice = document.getElementById('price').value
         var productDiscount = document.getElementById('discount').value
+
+        if(productName == '') {
+            alert('Product name is requered')
+            return false
+        }
+
+        if(productQuantity == '') {
+            alert('Product quantity is requered')
+            return false
+        }
+
+        if(productPrice == '') {
+            alert('Product price is requered')
+            return false
+        }
+
+        if(productDiscount == '') {
+            alert('Product discount is requered')
+            return false
+        }
 
         // convert data
         productPrice = parseFloat(productPrice)
@@ -102,8 +123,8 @@
             totalSub += itemProduct.sub
 
             if(i == productList.length -1 ) {
-                html += "<tr style='background: cadetblue;'>"
-                html += "<td colspan='5 > TotalSub </td>"
+                html += "<tr style='background: aquamarine'>"
+                html += "<td colspan='5' > TotalSub </td>"
                 html += "<td>" + totalSub + "</td>"
                 html += "</tr>"
             }
