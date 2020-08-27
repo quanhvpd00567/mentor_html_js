@@ -98,10 +98,19 @@
             html += "<td>" + itemProduct.discount + "</td>"
             html += "<td>" + itemProduct.sub + "</td>"
             html += "</tr>"
-
             // Caculator subtotal
             totalSub += itemProduct.sub
+
+            if(i == productList.length -1 ) {
+                html += "<tr>"
+                html += "<td colspan='5 style='floast: right'> TotalSub </td>"
+                html += "<td>" + totalSub + "</td>"
+                html += "</tr>"
+            }
         }
+
+
+
         document.getElementById('totalSub').innerHTML = totalSub
         // Append list product show on page
         up.innerHTML = html
