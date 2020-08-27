@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wp">
+        <h2>New product</h2>
+        <div class="item">
+            <label for="">Prodcut name</label>
+            <input type="text" id="name">
+        </div>
+        <div class="item">
+            <label for="">Quantity</label>
+            <input type="number" id="quantity">
+        </div>
+        <div class="item">
+            <label for="">Unit price</label>
+            <input type="text" id="price">
+        </div>
+        <div class="item">
+            <label for="">Discount</label>
+            <input type="number" id="discount">
+        </div>
+        <button onclick="onCreateProduct()">Sell</button>
+        <button onclick="onCancel()">Cancel</button>
+
+        <div id="listProduct">
+            TotalSub: <span id="totalSub">0</span>
+            <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Product name</td>
+                        <td>Quantity</td>
+                        <td>Unit price</td>
+                        <td>Discount</td>
+                        <td>Subtotal</td>
+                    </tr>
+                </thead>
+                <tbody id="dataAppend">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="create.js"></script>
+<script>
+
+    // list product
+    var productList = [];
+
+    function onCreateProduct() {
+        var productName = document.getElementById('name').value
+        var productQuantity = document.getElementById('quantity').value
+        var productPrice = document.getElementById('price').value
+        var productDiscount = document.getElementById('discount').value
+
+        // convert data
+        productPrice = parseFloat(productPrice)
+        productQuantity = parseInt(productQuantity)
+        productDiscount = parseInt(productDiscount)
+
+
+        // Product info
+        let product = {}
+        product.id = productList.length + 1
+        product.name = productName
+        product.quantity = productQuantity
+        product.price = productPrice
+        product.discount = productDiscount
+
+        product.sub = product.quantity * product.price * (1 - product.discount/100) ;
+
+
+        // Push product to list products
+        productList.push(product)
+
+        // Clear position show list product
+        var up = document.getElementById('dataAppend'); 
+            up.innerHTML = ""; 
+
+        // Create list prouct
+        var html = "";
+
+        // Set total = 0
+        var totalSub = 0;
+        for(var i = 0; i < productList.length; i++) {
+            itemProduct = productList[i]
+            html += "<tr>"
+            html += "<td>" + itemProduct.id + "</td>"
+            html += "<td>" + itemProduct.name + "</td>"
+            html += "<td>" + itemProduct.price + "</td>"
+            html += "<td>" + itemProduct.quantity + "</td>"
+            html += "<td>" + itemProduct.discount + "</td>"
+            html += "<td>" + itemProduct.sub + "</td>"
+            html += "</tr>"
+
+            // Caculator subtotal
+            totalSub += itemProduct.sub
+        }
+        document.getElementById('totalSub').innerHTML = totalSub
+        // Append list product show on page
+        up.innerHTML = html
+
+        // Call function clear
+        clear()
+    }
+
+    function clear() {
+        document.getElementById('name').value = ''
+        document.getElementById('quantity').value = ''
+        document.getElementById('price').value = ''
+        document.getElementById('discount').value = ''
+    }
+
+    // function search(nameKey){
+    //     for (var i=0; i < productList.length; i++) {
+    //         itemProduct = productList[i]
+    //         if (itemProduct.name === nameKey) {
+    //             return itemProduct;
+    //         }
+    //     }
+    //     return false
+    // }
+
+</script>
+</html>
